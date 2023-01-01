@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Game/Enemigos/rayo2.png" type="Texture" id=1]
+[ext_resource path="res://Game/Enemigos/rayo.png" type="Texture" id=2]
+[ext_resource path="res://Game/Enemigos/Rayos.gd" type="Script" id=3]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "caida",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 1.5, 14.3 )
+
+[node name="Rayos" type="Area2D"]
+scale = Vector2( 5, 5 )
+z_index = 150
+collision_layer = 32
+collision_mask = 6
+script = ExtResource( 3 )
+
+[node name="Animacion" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.03, 0.03 )
+frames = SubResource( 1 )
+animation = "caida"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0.1, -0.899999 )
+scale = Vector2( 1, 1 )
+shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 0.6, -1 )
+scale = Vector2( 0.61, 1.45 )
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
